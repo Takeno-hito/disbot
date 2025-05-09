@@ -42,13 +42,3 @@ func (b *Bot) searchCommand(name string) (command *ApplicationCommand, ok bool) 
 	}
 	return nil, false
 }
-
-func (b *Bot) ReplyEphemeral(s *discordgo.Session, i *discordgo.InteractionCreate, m string) error {
-	return s.InteractionRespond(i.Interaction, &discordgo.InteractionResponse{
-		Type: discordgo.InteractionResponseChannelMessageWithSource,
-		Data: &discordgo.InteractionResponseData{
-			Content: m,
-			Flags:   discordgo.MessageFlagsEphemeral,
-		},
-	})
-}
