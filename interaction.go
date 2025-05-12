@@ -28,6 +28,17 @@ func (b *Bot) onInteractionCreate(s *discordgo.Session, i *discordgo.Interaction
 			b.onError(s, i, ErrUnknownCommandKey)
 		}
 		return
+	case discordgo.InteractionModalSubmit:
+		interactionId := i.ModalSubmitData().CustomID
+		if h, ok := b.componentReactionHandlers[interactionId]; ok {
+			err := h(s, i)
+			if err != nil {
+				b.onError(s, i, err)
+			}
+		} else {
+			b.onError(s, i, ErrUnknownCommandKey)
+		}
+		return
 	default:
 		b.onError(s, i, ErrUndefinedCommandType)
 		return
