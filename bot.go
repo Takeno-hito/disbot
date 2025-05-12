@@ -24,10 +24,12 @@ type CommandDetail struct {
 }
 
 type ApplicationCommand struct {
-	Name    string
-	Detail  *CommandDetail
-	GuildId string
-	Handler InteractionHandler
+	Name                     string
+	Detail                   *CommandDetail
+	GuildId                  string
+	Handler                  InteractionHandler
+	DefaultMemberPermissions *int64
+	DefaultPermission        *bool
 }
 
 func New(token string, commands []*ApplicationCommand, messageActionMap map[string]InteractionHandler, onError func(s *discordgo.Session, i *discordgo.InteractionCreate, err error), onReady func(s *discordgo.Session, r *discordgo.Ready)) (*Bot, error) {
